@@ -56,21 +56,34 @@ endif()
 # Dependencies
 # ------------
 
+# 在Ubuntu上需要安装以下库：
+# - libssl-dev
+# - libcurlpp-dev
+# - libinih-dev
+# - libpugixml-dev
+# - zlib1g-dev
+# - nlohmann-json3-dev
+
 find_package(OpenSSL REQUIRED)
-find_package(unofficial-curlpp CONFIG REQUIRED)
-find_package(unofficial-inih CONFIG REQUIRED)
+find_package(CURL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(CURLPP REQUIRED curlpp)
+pkg_check_modules(INIH REQUIRED inih)
 find_package(nlohmann_json CONFIG REQUIRED)
-find_package(pugixml CONFIG REQUIRED)
+find_package(pugixml REQUIRED)
 find_package(ZLIB REQUIRED)
 
 list(APPEND MINIO_CPP_LIBS
-  unofficial::curlpp::curlpp
-  unofficial::inih::inireader
+  ${CURLPP_LIBRARIES}
+  ${INIH_LIBRARIES}
   nlohmann_json::nlohmann_json
   pugixml
   OpenSSL::SSL OpenSSL::Crypto
   ZLIB::ZLIB
+  ${CURL_LIBRARIES}
 )
+
+include_directories(${CURLPP_INCLUDE_DIRS} ${INIH_INCLUDE_DIRS})
 
 if (WIN32)
   list(APPEND MINIO_CPP_LIBS wsock32)

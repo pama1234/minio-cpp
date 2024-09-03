@@ -60,11 +60,10 @@ Note that `miniocpp::miniocpp` is a cmake imported target, which contains all th
 In order to run minio-cpp tests and examples, you can do the following assuming `VCPKG_ROOT` points to a valid `vcpkg` installation:
 
 ```bash
-$ git clone https://github.com/minio/minio-cpp
+$ git clone https://github.com/pama1234/minio-cpp
 $ cd minio-cpp
-$ ${VCPKG_ROOT}/vcpkg install
-$ cmake . -B build/Debug -DCMAKE_BUILD_TYPE=Debug -DMINIO_CPP_TEST=ON -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake
-$ cmake --build ./build/Debug
+$ cmake -B ./build
+$ cmake --build ./build
 ```
 
 Note that cmake also supports multi-configuration generators. Multi-configuration generators don't use `CMAKE_BUILD_TYPE` during configure time. For example a Visual Studio project can be setup the following way:
